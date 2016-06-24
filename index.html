@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8"/>
+  <title>Pux Example</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+  <style>
+    .board {
+      width: 600px;
+      height: 600px;
+      background-color: rgba(209, 209, 209, 0.6);
+    }
+
+    .row {
+      height: 200px;
+      width: 100%;
+    }
+
+    .block {
+      display: inline-block;
+      background-color: transparent;;
+      border: 1px solid white;
+      box-sizing: border-box;
+      height: 100%;
+      width: 200px;
+      cursor: pointer;
+    }
+
+    .block:hover {
+      background-color: rgba(209, 209, 209, 0.9)
+    }
+  </style>
+
+  <div id="app"></div>
+  <script src="https://fb.me/react-0.14.6.min.js"></script>
+  <script src="https://fb.me/react-dom-0.14.6.min.js"></script>
+  <script src="bundle.js"></script>
+</body>
+</html>
