@@ -1,39 +1,71 @@
 module Main where
 
-import Prelude (Unit, bind, const, show, (-), (+))
+import Prelude (class Show, Unit, bind, show, const, map, (<<<), (==))
 
 import Control.Monad.Eff (Eff)
 import Control.Monad.Eff.Exception (EXCEPTION)
 import Signal.Channel (CHANNEL)
 
 import Pux (renderToDOM, fromSimple, start)
-import Pux.Html (Html, text, button, span, div)
+import Pux.Html (Html, div, text)
 import Pux.Html.Events (onClick)
+import Pux.Html.Attributes (className)
 
-import Board (board)
+import Data.Tuple (Tuple(..), snd, fst)
+import Data.Array (range)
 
-data Action = Increment | Decrement
+data Action = Click Int
 
-type State = Int
+type Position = Int
+data Token = X | O | E
+type Board = Array (Tuple Position Token)
+
+type State = { activePlayer :: Token, board :: Board }
+
+initState :: State
+initState = { activePlayer: X, board: map (\i -> Tuple i E) (range 1 9) }
 
 update :: Action -> State -> State
-update Increment count = count + 1
-update Decrement count = count - 1
+update (Click i) st = { activePlayer: updatePlayer st.activePlayer, board: updateBoard i st }
+
+updatePlayer :: Token -> Token
+updatePlayer tk =
+  case tk of
+    X -> O
+    O -> X
+    E -> E
+
+updateBoard :: Int -> State -> Board
+updateBoard pos st =
+  map f st.board
+  where
+    f tup = if fst tup == pos
+                then Tuple pos st.activePlayer
+                else tup
+
+instance showToken :: Show Token where
+  show X = "X"
+  show O = "O"
+  show E = ""
 
 view :: State -> Html Action
-view count =
+view gmState =
   div
-    []
-    [ button [ onClick (const Increment) ] [ text "Increment" ]
-    , span [] [ text (show count) ]
-    , button [ onClick (const Decrement) ] [ text "Decrement" ]
-    , board
-    ]
+    [ className "board"]
+      blocks
+
+  where
+    -- blocks :: forall a. Array (Html a)
+    blocks :: Array (Html Action)
+    blocks = map mkBlock gmState.board
+
+    mkBlock :: Tuple Int Token -> Html Action
+    mkBlock tup = div [className "block", onClick (const (Click (fst tup)))] [(text <<< show) (snd tup)]
 
 main :: forall e. Eff (err :: EXCEPTION, channel :: CHANNEL | e) Unit
 main = do
   app <- start
-    { initialState: 0
+    { initialState: initState
     , update: fromSimple update
     , view: view
     , inputs: []
