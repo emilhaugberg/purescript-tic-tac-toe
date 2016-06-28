@@ -55,7 +55,6 @@ view gmState =
       blocks
 
   where
-    -- blocks :: forall a. Array (Html a)
     blocks :: Array (Html Action)
     blocks = map mkBlock gmState.board
 
