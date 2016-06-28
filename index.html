@@ -12,21 +12,35 @@
     .board {
       width: 600px;
       height: 600px;
-      background-color: rgba(209, 209, 209, 0.6);
+      background-color: white;
+      border: 1px solid rgba(209, 209, 209, 0.6);
     }
 
-    .row {
+    /*.row {
       height: 200px;
       width: 100%;
+    }*/
+
+    .block.X {
+      background-image: url("../images/cross.png");
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: 80%;
+    }
+
+    .block.O {
+      background-image: url("../images/circle.png");
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: 80%;
     }
 
     .block {
       display: inline-block;
       background-color: transparent;
-      margin: 0px;
-      padding: 0px;
-      border: 1px solid white;
       box-sizing: border-box;
+      color: transparent;
+      border: 1px solid rgba(209, 209, 209, 0.6);
       height: 200px;
       width: 200px;
       cursor: pointer;
