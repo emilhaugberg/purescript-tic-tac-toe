@@ -27,10 +27,6 @@ type State = { activePlayer :: Token, board :: Board }
 initState :: State
 initState = { activePlayer: X, board: map (\i -> Tuple i E) (range 1 9) }
 
--- update :: Action -> State -> State
--- update (Click i) st = { activePlayer: updatePlayer st.activePlayer, board: updateBoard i st }
--- update Reset st = initState
-
 update :: Action -> State -> State
 update (Click i) st = updateState i st
 update Reset st = initState
@@ -43,28 +39,29 @@ updateState pos st =
     Just (Tuple pos E) -> { activePlayer: updatePlayer st.activePlayer, board: updateBoard pos st }
     Nothing -> st
 
-updatePlayer :: Token -> Token
-updatePlayer tk =
-  case tk of
-    X -> O
-    O -> X
-    E -> E
+    where
+      updatePlayer :: Token -> Token
+      updatePlayer tk =
+        case tk of
+          X -> O
+          O -> X
+          E -> E
 
-updateBoard :: Position -> State -> Board
-updateBoard pos st =
-  map f st.board
-  where
-    f :: Tuple Position Token -> Tuple Position Token
-    f tup = if fst tup == pos
-               then checkIfAlreadyClicked tup
-               else tup
+      updateBoard :: Position -> State -> Board
+      updateBoard pos st =
+        map f st.board
+        where
+          f :: Tuple Position Token -> Tuple Position Token
+          f tup = if fst tup == pos
+                     then checkIfAlreadyClicked tup
+                     else tup
 
-    checkIfAlreadyClicked :: Tuple Position Token -> Tuple Position Token
-    checkIfAlreadyClicked tup =
-      case snd tup of
-        X -> tup
-        O -> tup
-        E -> Tuple pos st.activePlayer
+          checkIfAlreadyClicked :: Tuple Position Token -> Tuple Position Token
+          checkIfAlreadyClicked tup =
+            case snd tup of
+              X -> tup
+              O -> tup
+              E -> Tuple pos st.activePlayer
 
 instance showToken :: Show Token where
   show X = "X"
