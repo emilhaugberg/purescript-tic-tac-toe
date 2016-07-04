@@ -25,7 +25,7 @@ type Board = Array (Tuple Position Token)
 type State = { activePlayer :: Token, board :: Board }
 
 initState :: State
-initState = { activePlayer: X, board: map (\i -> Tuple i E) (range 1 9) }
+initState = { activePlayer: X, board: map (\i -> Tuple i E) (range 0 8) }
 
 update :: Action -> State -> State
 update (Click i) st = updateState i st
@@ -33,7 +33,7 @@ update Reset st = initState
 
 updateState :: Position -> State  -> State
 updateState pos st =
-  case index st.board (pos - 1) of
+  case index st.board pos of
     Just (Tuple pos X) -> st
     Just (Tuple pos O) -> st
     Just (Tuple pos E) -> { activePlayer: updatePlayer st.activePlayer, board: updateBoard pos st }
@@ -72,7 +72,7 @@ view :: State -> Html Action
 view gmState =
  div []
   [ div [className "board"] blocks
-  , div [] [button [onClick (const Reset)] [text "restart"]]
+  , div [] [button [onClick (const Reset)] [text "Restart"]]
   ]
 
   where
