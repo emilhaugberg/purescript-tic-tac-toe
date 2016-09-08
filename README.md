@@ -1,7 +1,10 @@
 # PureScript Tic-Tac-Toe
 
-- `npm i`
-- `npm start`
-- `Go to: http://localhost:8080/webpack-dev-server/`
+```bash
+npm i
+npm start
+```
+
+Open `http://localhost:8080/webpack-dev-server/`
 
 ![Image of board](images/board.png)
