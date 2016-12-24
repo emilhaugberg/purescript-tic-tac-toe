@@ -29,7 +29,9 @@
   },
   "homepage": "https://github.com/emilhaugberg/purescript-tic-tac-toe#readme",
   "dependencies": {
-    "bower": "^1.7.9"
+    "bower": "^1.7.9",
+    "react": "^15.4.1",
+    "react-dom": "^15.4.1"
   },
   "devDependencies": {
     "pulp": "^9.0.1",
