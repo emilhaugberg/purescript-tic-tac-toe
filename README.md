@@ -5,6 +5,6 @@ npm i
 npm start
 ```
 
-Open `http://localhost:8080/webpack-dev-server/`
+Go to `http://localhost:8080/`
 
-![Image of board](images/board.png)
+![](https://media.giphy.com/media/W6X5q1VpmGyjK/giphy.gif)
