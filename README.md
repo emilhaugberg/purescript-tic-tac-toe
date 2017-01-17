@@ -1,5 +1,9 @@
 # PureScript Tic-Tac-Toe
 
+## Game
+Go to this [page](https://emilhaugberg.github.io/purescript-tic-tac-toe)
+
+## Development
 ```bash
 npm i
 npm start
